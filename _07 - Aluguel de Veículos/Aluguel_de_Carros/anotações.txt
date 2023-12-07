@@ -1,0 +1,137 @@
+criar tabela veiculo
+
+CREATE TABLE "tb_veiculo" (
+	"veiculo_id"	INTEGER,
+	"modelo"	TEXT NOT NULL,
+	"ano"	TEXT NOT NULL,
+	"placa"	TEXT NOT NULL,
+	"disponibilidade"	TEXT NOT NULL,
+	PRIMARY KEY("veiculo_id" AUTOINCREMENT)
+);
+--------------------------------------------------------------------------------------------------------------------------
+criar tabela cliente
+
+CREATE TABLE "tb_cliente" (
+	"cliente_id"	INTEGER,
+	"nome"	TEXT NOT NULL,
+	"cnh"	TEXT NOT NULL,
+	"telefone"	TEXT NOT NULL,
+	PRIMARY KEY("cliente_id" AUTOINCREMENT)
+);
+
+
+-------------------------------------------------------------------------------------------------------------------------
+criar tabela aluguel
+
+CREATE TABLE "tb_aluguel" (
+	"aluguel_id"	INTEGER,
+	"cliente_id"	INTEGER,
+	"veiculo_id"	INTEGER,
+	"data_inicio"	TEXT NOT NULL,
+	"data_fim"	TEXT NOT NULL,
+	FOREIGN KEY("cliente_id") REFERENCES "tb_cliente"("cliente_id"),
+	FOREIGN KEY("veiculo_id") REFERENCES "tb_veiculo"("veiculo_id"),
+	PRIMARY KEY("aluguel_id" AUTOINCREMENT)
+);
+
+-------------------------------------------------------------------------------------------------------------------
+
+inserir tabela veiculo 
+INSERT INTO "tb_veiculo" (modelo, ano, placa, disponibilidade) 
+VALUES
+	('TRACKER', '2014', 'HOD-1675', 'Disponível'),
+	('EQUINOX', '2018', 'JDM-9385', 'Alugado'),
+	('TRAILBLAZER', '2014', 'KRN-8395', 'Disponível'),
+	('S10 CABINE SIMPLES', 'KDN-8495', 'Alugado', 'Alugado'),
+	('S10 Z71', '2018', 'MSK-4859', 'Disponível'),
+	('CAMARO', '2017', 'WQD-9375', 'Disponível'),
+	('BOLT EUV', '2013', 'EFT-9754', 'Disponível'),
+	('S10 MIDNIGHT', '2013', 'RVT-8465', 'Alugado'),
+	('SPIN ACTIV', '2014', 'CRR-8395', 'Disponível'),
+	('CRUZE', '2018', 'EEF-4829', 'Disponível')
+	('TRACKER', '2014', 'HOD-1675', 'Disponível'),
+	('EQUINOX', '2018', 'JDM-9385', 'Alugado'),
+	('TRAILBLAZER', '2014', 'KRN-8395', 'Disponível'),
+	('S10 CABINE SIMPLES', 'KDN-8495', 'Alugado', 'Alugado'),
+	('S10 Z71', '2018', 'MSK-4859', 'Disponível'),
+	('CAMARO', '2017', 'WQD-9375', 'Disponível'),
+	('BOLT EUV', '2013', 'EFT-9754', 'Disponível'),
+	('S10 MIDNIGHT', '2013', 'RVT-8465', 'Alugado'),
+	('SPIN ACTIV', '2014', 'CRR-8395', 'Disponível'),
+	('CRUZE', '2018', 'EEF-4829', 'Disponível');
+
+------------------------------------------------------------------------------------------
+
+inserir tabela aluguel
+
+INSERT INTO "tb_aluguel" (cliente_id, veiculo_id, data_inicio, data_fim) 
+VALUES
+	(78, 3, "2022", "2023"),
+	(6, 54, "2020", "2022"),
+	(5, 55, "2019", "2023"),
+	(8, 98, "2021", "2023"),
+	(65, 47, "2021", "2022"),
+	(75, 19, "2020", "2022"),
+	(3, 36, "2023", "2022"),
+	(64, 75, "2021", "2022"),
+	(4, 78, "2020", "2023"),
+	(25, 7, "2019", "2023")
+	(35, 5, "2018", "2022"),
+	(76, 67, "2020", "2023"),
+	(2, 4, "2018", "2023"),
+	(47, 54, "2022", "2022"),
+	(90, 9, "2023", "2023"),
+	(66, 8, "2020", "2022"),
+	(44, 6, "2023", "2023"),
+	(56, 34, "2019", "2023"),
+	(22, 79, "2022", "2022"),
+	(9, 45, "2022", "2023");
+
+----------------------------------------------------------------------------------------------------------
+
+inserir tabela cliente 
+
+INSERT INTO "tb_cliente" (nome, cnh, telefone) 
+VALUES
+	('Ana', '5747546897', '1111-111'),
+	('Giovanna', '2468756894', '2222-222'),
+	('Fernanda', '2378645678', '3333-333'),
+	('João', '1589056734', '4444-444'),
+	('Brenda', '4689764567', '5555-555'),
+	('Bruno', '1367956743', '6666-666'),
+	('Paulo', '2784564367', '7777-777'),
+	('Daniel', '23456789876', '8888-888'),
+	('Danilo', '2346547896', '9999-999'),
+	('Clara', '1456789878', '7777-777');
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+consultar no iner join
+
+SELECT 
+
+
+         tb_cliente.nome,
+         tb_cliente.cnh,
+         tb_cliente.telefone,
+	 tb_cliente.modelo,
+	 tb_cliente.ano,
+	 tb_cliente.placa
+
+FROM
+
+tb_veiculo
+
+INNER JOIN 
+
+tb_cliente ON tb_cliente.cliente_id = tb_veiculo.veiculo_id;
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+alterar dados 
+
+UPDATE tb_veiculo
+       SET ano = ''
+
