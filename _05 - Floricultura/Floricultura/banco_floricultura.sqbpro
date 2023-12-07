@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/aluno/Documents/Exercicios-der/Floricultura/banco_floricultura.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="2290"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainFlores"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Clientes" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="122"/><column index="2" value="103"/><column index="3" value="131"/><column index="4" value="170"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Emprestimos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="139"/><column index="2" value="231"/><column index="3" value="165"/><column index="4" value="126"/><column index="5" value="227"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Flores" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="189"/><column index="2" value="175"/><column index="3" value="135"/><column index="4" value="58"/><column index="5" value="224"/><column index="6" value="185"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Livros" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="182"/><column index="2" value="152"/><column index="3" value="157"/><column index="4" value="102"/><column index="5" value="145"/><column index="6" value="216"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Usuarios" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="167"/><column index="2" value="102"/><column index="3" value="131"/><column index="4" value="170"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">-- Tabela de Flores
+CREATE TABLE Flores (
+    codigo_identificacao INTEGER PRIMARY KEY,
+    nome_cientifico TEXT,
+    nome_popular TEXT,
+    preco REAL,
+    quantidade_em_estoque INTEGER,
+    cores_disponiveis TEXT
+);
+
+-- Tabela de Clientes
+CREATE TABLE Clientes (
+    cpf TEXT PRIMARY KEY,
+    nome TEXT,
+    telefone TEXT,
+    endereco_entrega TEXT
+);
+
+-- Tabela de Pedidos
+CREATE TABLE Pedidos (
+    numero_pedido INTEGER PRIMARY KEY,
+    data_realizacao DATE,
+    valor_total REAL,
+    cpf_cliente TEXT,
+    data_entrega DATE,
+    horario_entrega TIME,
+    FOREIGN KEY (cpf_cliente) REFERENCES Clientes(cpf)
+);
+
+-- Tabela de Detalhes do Pedido
+CREATE TABLE Detalhes_Pedido (
+    id INTEGER PRIMARY KEY,
+    numero_pedido INTEGER,
+    codigo_identificacao_flor INTEGER,
+    quantidade INTEGER,
+    FOREIGN KEY (numero_pedido) REFERENCES Pedidos(numero_pedido),
+    FOREIGN KEY (codigo_identificacao_flor) REFERENCES Flores(codigo_identificacao)
+);
+
+-- Inserir dados na tabela Flores
+INSERT INTO Flores (codigo_identificacao, nome_cientifico, nome_popular, preco, quantidade_em_estoque, cores_disponiveis)
+VALUES
+    (1, 'Rosa sp.', 'Rosa Vermelha', 5.99, 50, 'Vermelho, Branco, Rosa'),
+    (2, 'Tulipa sp.', 'Tulipa Amarela', 4.50, 30, 'Amarelo'),
+    (3, 'Orquídea phalaenopsis', 'Orquídea Rosa', 25.00, 20, 'Rosa');
+
+-- Inserir dados na tabela Clientes
+INSERT INTO Clientes (cpf, nome, telefone, endereco_entrega)
+VALUES
+    ('123.456.789-01', 'Ana Silva', '(11) 98765-4321', 'Rua das Flores, 123'),
+    ('234.567.890-12', 'João Oliveira', '(11) 91234-5678', 'Avenida Principal, 456'),
+    ('345.678.901-23', 'Maria Santos', '(11) 93333-4444', 'Praça Central, 789');
+
+-- Inserir dados na tabela Pedidos
+INSERT INTO Pedidos (numero_pedido, data_realizacao, valor_total, cpf_cliente, data_entrega, horario_entrega)
+VALUES
+    (1, '2023-11-01', 50.00, '123.456.789-01', '2023-11-10', '15:00'),
+    (2, '2023-11-02', 30.00, '234.567.890-12', '2023-11-12', '14:30'),
+    (3, '2023-11-03', 75.00, '345.678.901-23', '2023-11-15', '16:00');
+
+-- Inserir dados na tabela Detalhes_Pedido
+INSERT INTO Detalhes_Pedido (numero_pedido, codigo_identificacao_flor, quantidade)
+VALUES
+    (1, 1, 10),
+    (1, 2, 20),
+    (2, 3, 5),
+    (3, 1, 15),
+    (3, 2, 10),
+    (3, 3, 5);</sql><current_tab id="0"/></tab_sql></sqlb_project>
